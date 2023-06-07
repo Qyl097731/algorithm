@@ -20,6 +20,7 @@ public class SAP {
         int u = pre[start] = start, maxflow = 0, aug = -1;
         gap[0] = nodenum;
         while (dis[start] < nodenum) {
+            boolean flag = false;
             for (int v = cur[u]; v < nodenum; v++) {
                 if (maze[u][v] != 0 && dis[u] == dis[v] + 1) {
                     if (aug == -1 || aug > maze[u][v]) {
@@ -35,21 +36,23 @@ public class SAP {
                         }
                         aug = -1;
                     }
+                    flag = true;
+                }
+            }
+            if (!flag) {
+                int mindis = nodenum - 1;
+                for (int v = 0; v < nodenum; v++) {
+                    if (maze[u][v] != 0 && mindis > dis[v]) {
+                        cur[u] = v;
+                        mindis = dis[v];
+                    }
+                }
+                if ((--gap[dis[u]]) == 0) {
                     break;
                 }
+                gap[dis[u] = mindis + 1]++;
+                u = pre[u];
             }
-            int mindis = nodenum - 1;
-            for (int v = 0; v < nodenum; v++) {
-                if (maze[u][v] != 0 && mindis > dis[v]) {
-                    cur[u] = v;
-                    mindis = dis[v];
-                }
-            }
-            if ((--gap[dis[u]]) == 0) {
-                break;
-            }
-            gap[dis[u] = mindis + 1]++;
-            u = pre[u];
         }
         return maxflow;
     }
