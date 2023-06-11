@@ -4,7 +4,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * 最大流：FordFulkerson 即最短增益路径
+ * 最大流：EK 即最短增益路径
+ * bfs 找寻最短路径，更新增益，直至找不到
  * @author qyl
  */
 public class FordFulkerson {
