@@ -4,15 +4,16 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * 最大流：FordFulkerson 即最短增益路径
+ * 最大流：EK 即最短增益路径
+ * bfs 找寻最短路径，更新增益，直至找不到
  * @author qyl
  */
-public class FordFulkerson {
+public class Ek {
     private boolean[] marked; // 标记每个点是否被访问过
     private FlowEdge[] edgeTo; // 记录每个点的上一条边
     private int value; // 最大流量
 
-    public FordFulkerson(FlowNetwork G, int s, int t) {
+    public Ek(FlowNetwork G, int s, int t) {
         value = 0;
         while (hasAugmentingPath(G, s, t)) {
             int bottle = Integer.MAX_VALUE; // 增广路径上的最小剩余容量
@@ -74,7 +75,7 @@ public class FordFulkerson {
         flowNetwork.addEdge(edge8);
 
         // 运行Ford-Fulkerson算法
-        FordFulkerson fordFulkerson = new FordFulkerson(flowNetwork, 0, 5);
+        Ek fordFulkerson = new Ek (flowNetwork, 0, 5);
         System.out.println("Maximum flow is " + fordFulkerson.value());
     }
 }
